@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #adeefa; /* Cor de fundo padrão */
+            color: #333; /* Cor de texto padrão */
+        }
+
+        .container {
+            margin-top: 50px;
+        }
+
+        .btn-submit {
+            margin-top: 20px;
+        }
+
+        .center {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+    </style>
+    <title>Formulário</title>
+</head>
+<body>
+
+<div class="container center">
+    <div>
+        <h2 class="text-center">Formulário</h2>
+        <form id="myForm">
+            <!-- Input de texto -->
+            <div class="form-group">
+                <label for="nome">Nome:</label>
+                <input type="text" class="form-control" id="nome" name="nome">
+            </div>
+
+            <!-- Input numérico -->
+            <div class="form-group">
+                <label for="idade">Idade:</label>
+                <input type="number" class="form-control" id="idade" name="idade">
+            </div>
+
+            <!-- Input de texto adicional -->
+            <div class="form-group">
+                <label for="profissao">Profissão:</label>
+                <input type="text" class="form-control" id="profissao" name="profissao">
+            </div>
+
+            <!-- Outro input numérico -->
+            <div class="form-group">
+                <label for="salario">Salário:</label>
+                <input type="number" class="form-control" id="salario" name="salario">
+            </div>
+
+            <!-- Inputs radio -->
+            <div class="form-group">
+                <label>Gênero:</label>
+                <div class="form-check">
+                    <input type="radio" class="form-check-input" id="generoM" name="genero" value="M">
+                    <label class="form-check-label" for="generoM">Masculino</label>
+                </div>
+                <div class="form-check">
+                    <input type="radio" class="form-check-input" id="generoF" name="genero" value="F">
+                    <label class="form-check-label" for="generoF">Feminino</label>
+                </div>
+                <div class="form-check">
+                    <input type="radio" class="form-check-input" id="generoO" name="genero" value="O">
+                    <label class="form-check-label" for="generoO">Outro</label>
+                </div>
+            </div>
+
+            <!-- Caixa de seleção -->
+            <div class="form-group">
+                <label for="interesses">Interesses:</label>
+                <select class="form-control" id="interesses" name="interesses" multiple>
+                    <option value="esporte">Esporte</option>
+                    <option value="arte">Video Game</option>
+                    <option value="tecnologia">Tecnologia</option>
+                    <option value="viagem">Viagem</option>
+                    <option value="culinaria">Estudos</option>
+                </select>
+                <small id="interessesHelp" class="form-text text-muted">Segure "Ctrl" para selecionar várias opções.</small>
+            </div>
+
+            <button type="button" class="btn btn-primary btn-submit" onclick="gerarTexto()">Gerar Texto</button>
+        </form>
+
+        <div id="resultado" class="mt-4"></div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script>
+    function gerarTexto() {
+        // Obter valores dos campos
+        var nome = document.getElementById('nome').value;
+        var idade = document.getElementById('idade').value;
+        var genero = document.querySelector('input[name="genero"]:checked');
+        var profissao = document.getElementById('profissao').value;
+        var salario = document.getElementById('salario').value;
+        var interesses = document.getElementById('interesses').selectedOptions;
+
+        // Verificar condições para alterar cores
+        if (nome === "Maria" && idade > 10 && interesses.length === 5) {
+            document.body.style.backgroundColor = '#FFC0CB'; // Rosa
+            document.body.style.color = '#000'; // Texto preto
+        } else {
+            document.body.style.backgroundColor = '#fff'; // Fundo padrão
+            document.body.style.color = '#333'; // Texto padrão
+        }
+
+        // Gerar texto com preferências do usuário
+        var resultadoTexto = "<h4>Preferências do Usuário:</h4>";
+        resultadoTexto += "<p>Nome: " + nome + "</p>";
+        resultadoTexto += "<p>Idade: " + idade + "</p>";
+        resultadoTexto += "<p>Gênero: " + (genero ? genero.value : "") + "</p>";
+        resultadoTexto += "<p>Profissão: " + profissao + "</p>";
+        resultadoTexto += "<p>Salário: " + salario + "</p>";
+        resultadoTexto += "<p>Interesses: ";
+        for (var i = 0; i < interesses.length; i++) {
+            resultadoTexto += interesses[i].text + " ";
+        }
+        resultadoTexto += "</p>";
+
+        // Atualizar resultado na página
+        document.getElementById('resultado').innerHTML = resultadoTexto;
+    }
+</script>
+</body>
+</html>
